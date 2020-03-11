@@ -1,2 +1,3 @@
 # recipedb
-A digital cookbook
+- ohjelmaan voi tallentaa aineosia, keittiövälineitä ja reseptejä
+- ohjelma voi antaa reseptiehdotuksia 
