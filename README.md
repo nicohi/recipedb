@@ -1,4 +1,7 @@
 # recipedb
+
+[heroku-linkki](http://recipedb-nicohi.herokuapp.com/)
+
 - ohjelmaan voi tallentaa aineosia, keittiövälineitä ja reseptejä
 - ohjelma voi antaa reseptiehdotuksia 
 
