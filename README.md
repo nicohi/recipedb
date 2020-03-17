@@ -5,9 +5,7 @@
 
 [user stories](documentation/userstories.md)
 
-## tietokantataulut (alustava)
-![tables](documentation/tables.png?raw=true)
-
+[tietokantakaavio](documentation/tables.md)
 
 ## ohjeita
 start venv
