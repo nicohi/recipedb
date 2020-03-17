@@ -1,2 +1,2 @@
 ## tietokantataulut (alustava)
-![tables](documentation/tables.png?raw=true)
+![tables](tables.png?raw=true)
