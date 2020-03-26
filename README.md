@@ -1,6 +1,10 @@
 # recipedb
 
 [heroku linkki](http://recipedb-nicohi.herokuapp.com/)
+```
+username: admin
+password: admin
+```
 
 
 [user stories](documentation/userstories.md)
