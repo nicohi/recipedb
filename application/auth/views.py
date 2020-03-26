@@ -35,7 +35,7 @@ def auth_register():
 
     user = User.query.filter_by(username=form.username.data).first()
     if user:
-        return render_template("auth/loginform.html", form = form,
+        return render_template("auth/registerform.html", form = form,
                                error = "Username taken")
 
     user = User(name=form.name.data,
@@ -45,4 +45,5 @@ def auth_register():
     db.session().add(user)
     db.session().commit()
 
+    login_user(user)
     return redirect(url_for("index"))    
