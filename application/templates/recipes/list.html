@@ -8,7 +8,7 @@
     </tr>
     {% for r in recipes %}
     <tr>
-      <td>{{ r.name }}</td>
+        <td><a href="{{ url_for('recipes_view', recipe_id=r.id) }}">{{ r.name }}</a></td>
       <td>{{ r.favourite }}</td>
       <td>
 	<form method="POST" action="{{ url_for('recipes_set_favourite', recipe_id=r.id) }}">

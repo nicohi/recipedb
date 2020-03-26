@@ -31,6 +31,31 @@ def recipes_create():
   
     return redirect(url_for("recipes_index"))
 
+@app.route("/recipes/<recipe_id>/edit", methods=["POST"])
+@login_required
+def recipes_edit(recipe_id):
+    form = RecipeForm(request.form)
+
+    r = Recipe.query.get(recipe_id)
+
+    if not form.validate():
+        return render_template("recipes/"+recipe_id, form = form)
+
+    r.name = form.name.data
+    r.favourite = form.favourite.data
+    #r.account_id = current_user.id
+
+    db.session().commit()
+  
+    return redirect(url_for("recipes_index"))
+
+@app.route("/recipes/<recipe_id>/", methods=["GET"])
+@login_required
+def recipes_view(recipe_id):
+    r = Recipe.query.get(recipe_id)
+    f = RecipeForm(obj = Recipe.query.get(recipe_id))
+    return render_template("recipes/recipe.html", form = f, r = r)
+
 @app.route("/recipes/<recipe_id>/", methods=["POST"])
 @login_required
 def recipes_set_favourite(recipe_id):
