@@ -15,6 +15,11 @@
 	  <input type="submit" value="Toggle favourite"/>
 	</form>
       </td>
+      <td>
+	<form method="POST" action="{{ url_for('recipes_delete', recipe_id=r.id) }}">
+	  <input type="submit" value="Delete"/>
+	</form>
+      </td>
     </tr>
     {% endfor %}
   </table>

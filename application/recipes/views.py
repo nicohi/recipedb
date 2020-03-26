@@ -40,3 +40,13 @@ def recipes_set_favourite(recipe_id):
     db.session().commit()
   
     return redirect(url_for("recipes_index"))
+
+@app.route("/recipes/<recipe_id>/del", methods=["POST"])
+@login_required
+def recipes_delete(recipe_id):
+
+    r = Recipe.query.get(recipe_id)
+    db.session().delete(r)
+    db.session().commit()
+  
+    return redirect(url_for("recipes_index"))
