@@ -1,5 +1,7 @@
 # recipedb
 
+Digitaalinen keittokirja reseptien tallentamiseen ja löytämiseen.
+
 [heroku linkki](http://recipedb-nicohi.herokuapp.com/)
 ```
 username: admin
