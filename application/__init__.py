@@ -26,6 +26,11 @@ from application.recipes import views
 from application.auth import models
 from application.auth import views
 
+from application.ingredients import models
+from application.ingredients import views
+
+from application.tools import models
+from application.tools import views
 # auth
 
 from application.auth.models import User
@@ -44,7 +49,8 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-try: 
-    db.create_all()
-except:
-    pass
+db.create_all()
+#try: 
+    #db.create_all()
+#except:
+    #pass
