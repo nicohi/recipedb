@@ -4,4 +4,19 @@
   <p>
     recipedb - a digital cookbook
   </p>
+
+  {% if favs is defined %}
+    <p>
+    Favourites
+    </p>
+
+<ul>
+    {% for r in favs %}
+    <li>
+       {{r.name}}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endif %}
 {% endblock %}
