@@ -41,7 +41,7 @@ class Recipe(Base):
     @staticmethod
     def find_favourites():
         stmt = text("SELECT Recipe.id, Recipe.name FROM Recipe"
-                    " WHERE (Recipe.favourite IS 1)")
+                    " WHERE (Recipe.favourite IS TRUE)")
         res = db.engine.execute(stmt)
   
         response = []
