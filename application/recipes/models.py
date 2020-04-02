@@ -1,6 +1,8 @@
 from application import db
 from application.models import Base
 
+from sqlalchemy.sql import text
+
 recipe_ingredient = db.Table('recipe_ingredient', Base.metadata,
     db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
     db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'))
@@ -35,3 +37,15 @@ class Recipe(Base):
         self.name = name
         self.favourite = False
         self.text = ""
+
+    @staticmethod
+    def find_favourites():
+        stmt = text("SELECT Recipe.id, Recipe.name FROM Recipe"
+                    " WHERE (Recipe.favourite IS 1)")
+        res = db.engine.execute(stmt)
+  
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1]})
+
+        return response
