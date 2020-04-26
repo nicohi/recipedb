@@ -32,4 +32,36 @@
 	</td>
       </tr>
 </form>
+<table>
+    {% for i in ingredients %}
+        <tr>
+        <td>{{ i.unit }}</td>
+        <td><a>{{ i.name }}</a></td>
+        <td>
+            <form method="POST" action="{{ url_for('recipes_del_ingredient', recipe_id=r.id, ingredient_id=i.id) }}">
+            <input type="submit" value="-"/>
+            </form>
+        </td>
+        </tr>
+    {% endfor %}
+    <form method="POST" action="{{ url_for('recipes_add_ingredient', recipe_id=r.id) }}">
+    <tr>
+        <td>
+        {{ form2.ingredient.label }}
+        </td>
+        <td>
+        {{ form2.ingredient }}
+        </td>
+        <td>
+        {{ form2.quantity.label }}
+        </td>
+        <td>
+        {{ form2.quantity }}
+        </td>
+        <td>
+            <input type="submit" value="+"/>
+        </td>
+    </tr>
+    </form>
+</table>
 {% endblock %}

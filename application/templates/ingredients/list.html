@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Ingredient</th>
+      <th>Unit</th>
+    </tr>
+    {% for r in ingredients %}
+    <tr>
+        <td><a href="{{ url_for('ingredients_view', ingredient_id=r.id) }}">{{ r.name }}</a></td>
+      <td>{{ r.unit }}</td>
+      <td>
+	<form method="POST" action="{{ url_for('ingredients_delete', ingredient_id = r.id) }}">
+	  <input type="submit" value="Delete"/>
+	</form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

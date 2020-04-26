@@ -9,7 +9,8 @@ class Ingredient(Base):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
+    
+    unit = db.Column(db.String(144), nullable=True)
 
     def __init__(self, name):
         self.name = name
-        self.favourite = False

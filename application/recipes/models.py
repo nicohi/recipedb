@@ -5,12 +5,8 @@ from sqlalchemy.sql import text
 
 recipe_ingredient = db.Table('recipe_ingredient', Base.metadata,
     db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('quantity', db.Integer),
     db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'))
-)
-
-recipe_tool = db.Table('recipe_tool', Base.metadata,
-    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
-    db.Column('tool_id', db.Integer, db.ForeignKey('tool.id'))
 )
 
 class Recipe(Base):
@@ -24,10 +20,6 @@ class Recipe(Base):
                     secondary=recipe_ingredient,
                     backref="recipes")
 
-    tools = db.relationship("Tool",
-                    secondary=recipe_tool,
-                    backref="recipes")
-
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
 
@@ -37,6 +29,27 @@ class Recipe(Base):
         self.name = name
         self.favourite = False
         self.text = ""
+
+    @staticmethod
+    def quantity_of(id):
+        stmt = text("SELECT quantity FROM recipe_ingredient"
+                    " WHERE (ingredient_id IS {})".format(id))
+        res = db.engine.execute(stmt)
+  
+        response = []
+        for row in res:
+            response.append(row)
+
+        return response
+
+    @staticmethod
+    def set_quantity(self, ingredient_id, quantity):
+        stmt = text("UPDATE recipe_ingredient "
+                    "SET quantity = {} "
+                    "WHERE (ingredient_id IS {} AND recipe_id IS {})".format(quantity, ingredient_id, self.id))
+        res = db.engine.execute(stmt)
+  
+        return res
 
     @staticmethod
     def find_favourites():

@@ -3,7 +3,9 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from application.recipes.models import Recipe
-from application.recipes.forms import RecipeForm
+from application.ingredients.models import Ingredient
+from application.recipes.forms import RecipeForm, IngredientWithRecipeForm
+
 
 @app.route("/recipes", methods=["GET"])
 def recipes_index():
@@ -35,7 +37,6 @@ def recipes_create():
 @login_required
 def recipes_edit(recipe_id):
     form = RecipeForm(request.form)
-
     r = Recipe.query.get(recipe_id)
 
     if not form.validate():
@@ -43,18 +44,43 @@ def recipes_edit(recipe_id):
 
     r.name = form.name.data
     r.favourite = form.favourite.data
-    #r.account_id = current_user.id
 
     db.session().commit()
   
     return redirect(url_for("recipes_index"))
+
+@app.route("/recipes/<recipe_id>/ingredient", methods=["POST"])
+@login_required
+def recipes_add_ingredient(recipe_id):
+    form = IngredientWithRecipeForm(request.form)
+    r = Recipe.query.get(recipe_id)
+
+    r.ingredients.append(Ingredient.query.get(form.ingredient.data))
+    db.session().commit()
+
+    r.set_quantity(r, form.ingredient.data, form.quantity.data)
+
+    print(r.quantity_of(r.ingredients[0].id))
+  
+    return redirect(url_for("recipes_view",recipe_id=recipe_id))
+
+@app.route("/recipes/<recipe_id>/ingredient/<ingredient_id>", methods=["POST"])
+@login_required
+def recipes_del_ingredient(recipe_id, ingredient_id):
+    r = Recipe.query.get(recipe_id)
+    r.ingredients.remove(Ingredient.query.get(ingredient_id))
+    db.session().commit()
+
+    return redirect(url_for("recipes_view",recipe_id=recipe_id))
 
 @app.route("/recipes/<recipe_id>/", methods=["GET"])
 @login_required
 def recipes_view(recipe_id):
     r = Recipe.query.get(recipe_id)
     f = RecipeForm(obj = Recipe.query.get(recipe_id))
-    return render_template("recipes/recipe.html", form = f, r = r)
+    f2 = IngredientWithRecipeForm()
+    f2.ingredient.choices = map(lambda i: (i.id,i.name), Ingredient.query.all())
+    return render_template("recipes/recipe.html", form = f, form2 = f2, r = r, ingredients = r.ingredients)
 
 @app.route("/recipes/<recipe_id>/", methods=["POST"])
 @login_required
