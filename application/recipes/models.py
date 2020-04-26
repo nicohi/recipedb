@@ -33,7 +33,7 @@ class Recipe(Base):
     @staticmethod
     def quantity_of(id):
         stmt = text("SELECT quantity FROM recipe_ingredient"
-                    " WHERE (ingredient_id IS {})".format(id))
+                    " WHERE (ingredient_id = {})".format(id))
         res = db.engine.execute(stmt)
   
         response = []
@@ -46,7 +46,7 @@ class Recipe(Base):
     def set_quantity(self, ingredient_id, quantity):
         stmt = text("UPDATE recipe_ingredient "
                     "SET quantity = {} "
-                    "WHERE (ingredient_id IS {} AND recipe_id IS {})".format(quantity, ingredient_id, self.id))
+                    "WHERE (ingredient_id = {} AND recipe_id = {})".format(quantity, ingredient_id, self.id))
         res = db.engine.execute(stmt)
   
         return res
@@ -54,7 +54,7 @@ class Recipe(Base):
     @staticmethod
     def find_favourites():
         stmt = text("SELECT Recipe.id, Recipe.name FROM Recipe"
-                    " WHERE (Recipe.favourite IS TRUE)")
+                    " WHERE (Recipe.favourite = TRUE)")
         res = db.engine.execute(stmt)
   
         response = []
