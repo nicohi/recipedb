@@ -35,10 +35,11 @@
 <table>
     {% for i in ingredients %}
         <tr>
-        <td>{{ i.unit }}</td>
-        <td><a>{{ i.name }}</a></td>
+        <td>{{ i[1] }}</td>
+        <td>{{ i[0].unit }}</td>
+        <td><a>{{ i[0].name }}</a></td>
         <td>
-            <form method="POST" action="{{ url_for('recipes_del_ingredient', recipe_id=r.id, ingredient_id=i.id) }}">
+            <form method="POST" action="{{ url_for('recipes_del_ingredient', recipe_id=r.id, ingredient_id=i[0].id) }}">
             <input type="submit" value="-"/>
             </form>
         </td>

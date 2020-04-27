@@ -23,24 +23,29 @@ class Recipe(Base):
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
 
+    description = db.Column(db.String(), nullable=False)
+
     text = db.Column(db.String(), nullable=False)
 
     def __init__(self, name):
         self.name = name
         self.favourite = False
         self.text = ""
+        self.description = ""
 
     @staticmethod
-    def quantity_of(id):
+    def get_quantity(self, ingredient_id):
         stmt = text("SELECT quantity FROM recipe_ingredient"
-                    " WHERE (ingredient_id = {})".format(id))
+                    " WHERE (recipe_id = {} AND ingredient_id = {})".format(self.id, ingredient_id))
         res = db.engine.execute(stmt)
   
         response = []
         for row in res:
-            response.append(row)
+            response.append(row.values()[0])
 
-        return response
+        if len(response) is 0:
+            return 0
+        return response[0]
 
     @staticmethod
     def set_quantity(self, ingredient_id, quantity):
@@ -48,7 +53,6 @@ class Recipe(Base):
                     "SET quantity = {} "
                     "WHERE (ingredient_id = {} AND recipe_id = {})".format(quantity, ingredient_id, self.id))
         res = db.engine.execute(stmt)
-  
         return res
 
     @staticmethod

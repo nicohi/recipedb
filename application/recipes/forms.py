@@ -11,8 +11,8 @@ class RecipeForm(FlaskForm):
         csrf = False
 
 class IngredientWithRecipeForm(FlaskForm):
-    ingredient = SelectField("Ingredient", choices=[(0,"EMPTY")])
-    quantity = IntegerField("quantity", default=0)
+    ingredient = SelectField("Add", choices=[(0,"EMPTY")])
+    quantity = IntegerField("quantity")
  
     class Meta:
         csrf = False
