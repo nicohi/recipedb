@@ -27,6 +27,7 @@ def recipes_create():
     r = Recipe(form.name.data)
     r.favourite = form.favourite.data
     r.account_id = current_user.id
+    r.description = form.description.data
 
     db.session().add(r)
     db.session().commit()
@@ -44,6 +45,8 @@ def recipes_edit(recipe_id):
 
     r.name = form.name.data
     r.favourite = form.favourite.data
+    r.description = form.description.data
+    r.text = form.text.data
 
     db.session().commit()
   

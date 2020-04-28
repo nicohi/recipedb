@@ -11,6 +11,10 @@ class User(Base):
 
     recipes = db.relationship("Recipe", backref='account', lazy=True)
 
+    filter_id = db.Column(db.Integer, db.ForeignKey('filter.id'),
+                        nullable=True)
+
+
     def __init__(self, name, username, password):
         self.name = name
         self.username = username

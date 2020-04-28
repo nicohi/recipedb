@@ -5,8 +5,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 import os
 
-#add admin
-# INSERT INTO account (name, username, password) VALUES ('Admin', 'admin', 'admin');
+
+if os.environ.get("HEROKU"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///recipes.db"
+    app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
 
@@ -22,6 +26,9 @@ from application.auth import views
 
 from application.ingredients import models
 from application.ingredients import views
+
+from application.filter import models
+from application.filter import views
 
 # auth
 from application.auth.models import User
@@ -39,14 +46,11 @@ login_manager.login_message = "Please login to use this functionality."
 def load_user(user_id):
     return User.query.get(user_id)
 
-if os.environ.get("HEROKU"):
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-else:
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///recipes.db"
-    app.config["SQLALCHEMY_ECHO"] = True
-
-#db.create_all()
 try: 
     db.create_all()
+    #add admin
+    #stmt = text("INSERT INTO account (name, username, password) VALUES ('Admin', 'admin', 'admin');")
+    #res = db.engine.execute(stmt)
 except:
     pass
+

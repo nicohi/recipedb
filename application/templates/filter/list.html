@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<h1>Filter by ingredients</h1>
+<table>
+    {% for i in ingredients %}
+        <tr>
+        <td><a href="{{ url_for('ingredients_view', ingredient_id=i.id) }}">{{ i.name }}</a></td>
+        <td>
+            <form method="POST" action="{{ url_for('filter_del_ingredient', ingredient_id=i.id) }}">
+            <input type="submit" value="-"/>
+            </form>
+        </td>
+        </tr>
+    {% endfor %}
+    <form method="POST" action="{{ url_for('filter_add_ingredient') }}">
+        <tr>
+            <td>
+            {{ form.ingredient.label }}
+            </td>
+            <td>
+            {{ form.ingredient }}
+            </td>
+            <td>
+                <input type="submit" value="+"/>
+            </td>
+        </tr>
+    </form>
+</table>
+<h2>Recipes</h2>
+<table>
+    {% for r in recipes %}
+        <tr>
+        <td><a href="{{ url_for('recipes_view', recipe_id=r.id) }}">{{ r.name }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
