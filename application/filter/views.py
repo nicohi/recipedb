@@ -9,11 +9,25 @@ from application.filter.forms import FilterForm, SearchForm
 from application.ingredients.models import Ingredient
 from application.recipes.forms import RecipeForm, IngredientWithRecipeForm
 
+
 def search(term, filt):
     if filt is None:
-        return []
+        filt = Filter(id = current_user.id)
+    if term is None:
+        term = ""
+
+    term = term.lower()
+
+    def filterByTerm(r):
+        return (term in r.name.lower()
+            or term in r.description.lower()
+            or term in r.text.lower())
+
+    if len(filt.ingredients) == 0:
+        return filter(filterByTerm, Recipe.query.all())
+
     rs = Recipe.query.filter(Recipe.id.in_(filt.get_recipes(filt))).all()
-    return rs
+    return filter(filterByTerm, rs)
 
 @app.route("/filter", methods=["GET"])
 @login_required
@@ -21,7 +35,7 @@ def filter_index():
     form = FilterForm()
     form.ingredient.choices = map(lambda i: (i.id, i.name), Ingredient.query.all())
     f = Filter.query.get(Filter.get_filter(current_user.id))
-    rs = search("", f)
+    rs = search(request.args.get('term'), f)
     ings = Ingredient.query.all(),
     if f is None:
         return render_template("filter/list.html",  recipes = rs, form = form)

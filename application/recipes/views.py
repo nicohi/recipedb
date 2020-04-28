@@ -50,7 +50,7 @@ def recipes_edit(recipe_id):
 
     db.session().commit()
   
-    return redirect(url_for("recipes_index"))
+    return redirect(url_for("recipes_view",recipe_id=recipe_id))
 
 @app.route("/recipes/<recipe_id>/ingredient", methods=["POST"])
 @login_required

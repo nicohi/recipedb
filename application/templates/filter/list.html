@@ -1,38 +1,59 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<h1>Filter by ingredients</h1>
-<table>
-    {% for i in ingredients %}
-        <tr>
-        <td><a href="{{ url_for('ingredients_view', ingredient_id=i.id) }}">{{ i.name }}</a></td>
-        <td>
-            <form method="POST" action="{{ url_for('filter_del_ingredient', ingredient_id=i.id) }}">
-            <input type="submit" value="-"/>
-            </form>
-        </td>
-        </tr>
-    {% endfor %}
-    <form method="POST" action="{{ url_for('filter_add_ingredient') }}">
-        <tr>
-            <td>
-            {{ form.ingredient.label }}
-            </td>
-            <td>
-            {{ form.ingredient }}
-            </td>
-            <td>
-                <input type="submit" value="+"/>
-            </td>
-        </tr>
+<table class="table">
+<tr>
+<td>
+    <h2>Search</h2>
+</td>
+<td>
+    <h2>Filter by ingredients</h2>
+</td>
+</tr>
+<tr>
+<td>
+    <form method="GET" action="{{ url_for('filter_index') }}">
+    <input type="text" id="term" name="term" value=""/>
+    <input type="submit" value="search"/>
     </form>
+</td>
+<td>
+    <table>
+        {% for i in ingredients %}
+            <tr>
+            <td><a href="{{ url_for('ingredients_view', ingredient_id=i.id) }}">{{ i.name }}</a></td>
+            <td>
+                <form method="POST" action="{{ url_for('filter_del_ingredient', ingredient_id=i.id) }}">
+                <input type="submit" value="-"/>
+                </form>
+            </td>
+            </tr>
+        {% endfor %}
+        <form method="POST" action="{{ url_for('filter_add_ingredient') }}">
+            <tr>
+                <td>
+                {{ form.ingredient.label }}
+                </td>
+                <td>
+                {{ form.ingredient }}
+                </td>
+                <td>
+                    <input type="submit" value="+"/>
+                </td>
+            </tr>
+        </form>
+    </table>
+</td>
+</tr>
 </table>
-<h2>Recipes</h2>
-<table>
+<h2>Search results</h2>
+<table class="table">
     {% for r in recipes %}
         <tr>
         <td><a href="{{ url_for('recipes_view', recipe_id=r.id) }}">{{ r.name }}</a></td>
+        <td>{{ r.description }}</td>
         </tr>
     {% endfor %}
+</table>
 </table>
 {% endblock %}
