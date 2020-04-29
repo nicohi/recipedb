@@ -41,7 +41,7 @@ def recipes_edit(recipe_id):
     r = Recipe.query.get(recipe_id)
 
     if not form.validate():
-        return render_template("recipes/"+recipe_id, form = form)
+        return redirect(url_for("recipes_view", recipe_id=recipe_id, form = form))
 
     r.name = form.name.data
     r.favourite = form.favourite.data
@@ -58,10 +58,16 @@ def recipes_add_ingredient(recipe_id):
     form = IngredientWithRecipeForm(request.form)
     r = Recipe.query.get(recipe_id)
 
+    quantity = form.quantity.data
+    try:
+        quantity = int(quantity)
+    except:
+        quantity = 0
+
     r.ingredients.append(Ingredient.query.get(form.ingredient.data))
     db.session().commit()
 
-    r.set_quantity(r, form.ingredient.data, form.quantity.data)
+    r.set_quantity(r, form.ingredient.data, quantity)
 
     return redirect(url_for("recipes_view",recipe_id=recipe_id))
 
