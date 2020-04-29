@@ -22,11 +22,11 @@ def ingredients_create():
     if not form.validate():
         return render_template("ingredients/new.html", form = form)
 
-    r = Ingredient(form.name.data)
-    r.account_id = current_user.id
-    r.unit = form.unit.data
+    i = Ingredient(form.name.data)
+    i.account_id = current_user.id
+    i.unit = form.unit.data
 
-    db.session().add(r)
+    db.session().add(i)
     db.session().commit()
   
     return redirect(url_for("ingredients_index"))
@@ -36,14 +36,14 @@ def ingredients_create():
 def ingredients_edit(ingredient_id):
     form = IngredientForm(request.form)
 
-    r = Ingredient.query.get(ingredient_id)
+    i = Ingredient.query.get(ingredient_id)
 
     if not form.validate():
         return render_template("ingredients/"+ingredient_id, form = form)
 
-    r.name = form.name.data
-    r.favourite = form.favourite.data
-    #r.account_id = current_user.id
+    i.name = form.name.data
+    i.account_id = current_user.id
+    i.unit = form.unit.data
 
     db.session().commit()
   
