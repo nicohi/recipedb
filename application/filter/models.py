@@ -2,6 +2,7 @@ from application import db
 from application.models import Base
 
 from sqlalchemy.sql import text
+from application.recipes.models import Recipe
 
 filter_ingredient = db.Table('filter_ingredient', Base.metadata,
     db.Column('filter_id', db.Integer, db.ForeignKey('filter.id')),
@@ -25,13 +26,14 @@ class Filter(Base):
     @staticmethod
     def get_recipes(self):
         stmt = text("SELECT recipe_id FROM recipe_ingredient "
-                    "WHERE ingredient_id IN (SELECT ingredient_id FROM filter_ingredient "
-                    "WHERE (filter_id = {}))".format(self.id))
+                    "WHERE ingredient_id IN (SELECT ingredient_id FROM filter_ingredient WHERE (filter_id = {})) "
+                    "GROUP BY recipe_id "
+                    "ORDER BY COUNT(*) DESC".format(self.id))
         try:
             res = db.engine.execute(stmt)
             response = []
             for row in res:
-                response.append(row.values()[0])
+                response.append(Recipe.query.get(row.values()[0]))
             return response
         except:
             return [] 

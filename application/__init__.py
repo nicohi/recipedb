@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 import os
 
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
@@ -48,9 +49,6 @@ def load_user(user_id):
 
 try: 
     db.create_all()
-    #add admin
-    #stmt = text("INSERT INTO account (name, username, password) VALUES ('Admin', 'admin', 'admin');")
-    #res = db.engine.execute(stmt)
 except:
     pass
 

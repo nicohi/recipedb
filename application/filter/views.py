@@ -9,7 +9,7 @@ from application.filter.forms import FilterForm, SearchForm
 from application.ingredients.models import Ingredient
 from application.recipes.forms import RecipeForm, IngredientWithRecipeForm
 
-
+# search with string and filter object
 def search(term, filt):
     if filt is None:
         filt = Filter(id = current_user.id)
@@ -26,7 +26,8 @@ def search(term, filt):
     if len(filt.ingredients) == 0:
         return filter(filterByTerm, Recipe.query.all())
 
-    rs = Recipe.query.filter(Recipe.id.in_(filt.get_recipes(filt))).all()
+    #rs = Recipe.query.filter(Recipe.id.in_(filt.get_recipes(filt))).all()
+    rs = filt.get_recipes(filt)
     return filter(filterByTerm, rs)
 
 @app.route("/filter", methods=["GET"])
