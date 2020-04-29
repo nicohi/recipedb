@@ -1,4 +1,6 @@
 # user stories
-- Käyttäjä voi tallentaa aineosia, keittiövälineitä ja reseptejä.
-- Käyttäjä voi saada ohjelmalta reseptiehdotuksia jollain aineosilla ja keittiövälineillä. Ohjelma valitsee reseptit joihin käyttäjällä on suurin osa aineosista.
-- Käyttäjä voi selata ja etsiä reseptejä.
+- Käyttäjä voi tallentaa aineosia ja reseptejä.
+- Käyttäjä voi muokata lisättyjä aineosia reseptejä
+- Käyttäjä voi poistaa lisättyjä aineosia reseptejä
+- Käyttäjä voi muokata lisättyjä aineosia reseptejä
+- Käyttäjä voi saada ohjelmalta reseptiehdotuksia jollain aineosilla ja merkkijonolla. Ohjelma järjestää reseptit aineosien mukaan.
