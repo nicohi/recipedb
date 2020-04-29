@@ -1,35 +1,34 @@
 # recipedb
 
-Digitaalinen keittokirja reseptien tallentamiseen ja löytämiseen.
+A digital cookbook for managing recipes.
 
-[heroku linkki](http://recipedb-nicohi.herokuapp.com/)
+[heroku deployment](http://recipedb-nicohi.herokuapp.com/)
 ```
 username: admin
 password: admin
 ```
 
-
 [user stories](documentation/userstories.md)
 
 [tietokantakaavio](documentation/tables.md)
 
-## ohjeita
-start venv
+[features](documentation/features.md)
+
+## Installation instructions
+
+### Setting up venv and installing dependencies
 ```
 python3 -m venv venv
 source venv/bin/activate
-```
-install requirements
-```
 pip install -r requirements.txt
 ```
 
-run program
+### Running program
 ```
 python run.py
 ```
 
-update requirements
+### Updating requirements (devs only)
 ```
 pip freeze | grep -v pkg-resources > requirements.txt
 ```
