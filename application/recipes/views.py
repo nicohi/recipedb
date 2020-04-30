@@ -77,7 +77,7 @@ def recipes_add_ingredient(recipe_id):
 
     r.set_quantity(r, form.ingredient.data, quantity)
 
-    return redirect(url_for("recipes_view",recipe_id=recipe_id))
+    return redirect(url_for("recipes_editpage",recipe_id=recipe_id))
 
 @app.route("/recipes/<recipe_id>/ingredient/<ingredient_id>", methods=["POST"])
 @login_required
