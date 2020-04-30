@@ -3,6 +3,7 @@
 - [x] Ability to manage recipes and ingredients
 - [x] Users can register and login
 - [x] Restrict most functions to logged in users
+- [x] Show favourites on main page
 - [ ] Markdown rendering for recipe text
 - [ ] Import/export to file
 - [ ] Pictures
