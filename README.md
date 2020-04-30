@@ -32,3 +32,15 @@ python run.py
 ```
 pip freeze | grep -v pkg-resources > requirements.txt
 ```
+
+## Usage instructions
+Most functionality is only accessible for logged in users.
+So the recommended first step is to register a new user.
+Currently all users have the ability to edit all recipes.
+
+After logging in you should be able to navigate all of the pages listed in the top bar.
+The titles describe what these pages allow you to do.
+
+When adding a new recipe, first create entries for all the ingredients (if they do not already exist).
+Then create a recipe entry with a description and navigate to that recipes 'edit' page. (click the recipe, then click 'edit')
+Then you can link the ingredients to the recipe with the correct quantities by typing an integer in the text field and pressing '+'.
