@@ -1,4 +1,5 @@
 # Features
+Checked features have been implemented
 - [x] Search with ability to filter by ingredients (results also sorted by most ingredient matches)
 - [x] Ability to manage recipes and ingredients
 - [x] Users can register and login
