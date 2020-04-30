@@ -122,4 +122,4 @@ def recipes_delete(recipe_id):
     db.session().delete(r)
     db.session().commit()
   
-    return redirect(url_for("recipes_view", recipe_id=recipe_id))
+    return redirect(url_for("recipes_index"))
