@@ -94,7 +94,7 @@ def recipes_editpage(recipe_id):
     r = Recipe.query.get(recipe_id)
     f = RecipeForm(obj = Recipe.query.get(recipe_id))
     f2 = IngredientWithRecipeForm()
-    f2.ingredient.choices = map(lambda i: (i.id, i.name+" ({})".format(i.unit)), Ingredient.query.all())
+    f2.ingredient.choices = map(lambda i: (i.id, i.name+" ({})".format(i.unit)), Ingredient.query.order_by(Ingredient.name).all())
     ings = map(lambda i: [i, r.get_quantity(r,i.id)], r.ingredients)
     return render_template("recipes/recipe.html", form = f, form2 = f2, r = r, ingredients = ings)
 

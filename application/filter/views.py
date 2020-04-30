@@ -34,10 +34,10 @@ def search(term, filt):
 @login_required
 def filter_index():
     form = FilterForm()
-    form.ingredient.choices = map(lambda i: (i.id, i.name), Ingredient.query.all())
+    form.ingredient.choices = map(lambda i: (i.id, i.name), Ingredient.query.order_by(Ingredient.name).all())
     f = Filter.query.get(Filter.get_filter(current_user.id))
     rs = search(request.args.get('term'), f)
-    ings = Ingredient.query.all(),
+    ings = Ingredient.query.order_by(Ingredient.name).all(),
     if f is None:
         return render_template("filter/list.html",  recipes = rs, form = form)
     return render_template("filter/list.html",  recipes = rs, form = form, ingredients = f.ingredients)
