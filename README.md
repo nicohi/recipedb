@@ -14,25 +14,6 @@ password: admin
 
 [features](documentation/features.md)
 
-## Installation instructions
-
-### Setting up venv and installing dependencies
-```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-### Running program
-```
-python run.py
-```
-
-### Updating requirements (devs only)
-```
-pip freeze | grep -v pkg-resources > requirements.txt
-```
-
 ## Usage instructions
 Most functionality is only accessible for logged in users.
 So the recommended first step is to register a new user.
@@ -55,3 +36,22 @@ Add or remove ingredients with the + and - buttons.
 Navigate to the "Find recipes" tab.
 You can search by entering text into the search field and pressing the button (search looks at all associated text in recipes except ingredients).
 You can also add ingredients to filter results. Recipes are sorted by the number of ingredients they use that are in your filter.
+
+## Installation instructions
+
+### Setting up venv and installing dependencies
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Running program
+```
+python run.py
+```
+
+### Updating requirements (devs only)
+```
+pip freeze | grep -v pkg-resources > requirements.txt
+```
