@@ -8,3 +8,4 @@
 - [ ] Import/export to file
 - [ ] Pictures
 - [ ] Add recipe ownership to users (disallow other users to edit recipes not owned by them)
+- [ ] Remove HTML-injection possibility
