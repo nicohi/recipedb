@@ -8,7 +8,7 @@ from application.ingredients.forms import IngredientForm
 @app.route("/ingredients", methods=["GET"])
 @login_required
 def ingredients_index():
-    return render_template("ingredients/list.html", ingredients = Ingredient.query.all())
+    return render_template("ingredients/list.html", ingredients = Ingredient.query.order_by(Ingredient.name).all())
 
 @app.route("/ingredients/new/")
 @login_required
