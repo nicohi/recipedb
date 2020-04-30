@@ -10,7 +10,7 @@ password: admin
 
 [user stories](documentation/userstories.md)
 
-[tietokantakaavio](documentation/tables.md)
+[database diagram](documentation/tables.md)
 
 [features](documentation/features.md)
 
