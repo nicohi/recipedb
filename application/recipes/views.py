@@ -6,6 +6,14 @@ from application.recipes.models import Recipe
 from application.ingredients.models import Ingredient
 from application.recipes.forms import RecipeForm, IngredientWithRecipeForm
 
+import re
+
+# remove most special symbols from string (except ,.-)
+def cleanstr(s):
+    ret = ""
+    for k in s.split("\n"):
+        ret = ret + re.sub(r"[^a-zA-Z0-9.,-]+", ' ', k) + '\n'
+    return ret
 
 @app.route("/recipes", methods=["GET"])
 def recipes_index():
@@ -27,7 +35,7 @@ def recipes_create():
     r = Recipe(form.name.data)
     r.favourite = form.favourite.data
     r.account_id = current_user.id
-    r.description = form.description.data
+    r.description = cleanstr(form.description.data)
 
     db.session().add(r)
     db.session().commit()
@@ -45,8 +53,8 @@ def recipes_edit(recipe_id):
 
     r.name = form.name.data
     r.favourite = form.favourite.data
-    r.description = form.description.data
-    r.text = form.text.data
+    r.description = cleanstr(form.description.data)
+    r.text = cleanstr(form.text.data)
 
     db.session().commit()
   
@@ -82,13 +90,19 @@ def recipes_del_ingredient(recipe_id, ingredient_id):
 
 @app.route("/recipes/<recipe_id>/", methods=["GET"])
 @login_required
-def recipes_view(recipe_id):
+def recipes_editpage(recipe_id):
     r = Recipe.query.get(recipe_id)
     f = RecipeForm(obj = Recipe.query.get(recipe_id))
     f2 = IngredientWithRecipeForm()
     f2.ingredient.choices = map(lambda i: (i.id, i.name+" ({})".format(i.unit)), Ingredient.query.all())
     ings = map(lambda i: [i, r.get_quantity(r,i.id)], r.ingredients)
     return render_template("recipes/recipe.html", form = f, form2 = f2, r = r, ingredients = ings)
+
+@app.route("/recipes/<recipe_id>/view", methods=["GET"])
+def recipes_view(recipe_id):
+    r = Recipe.query.get(recipe_id)
+    ings = map(lambda i: [i, r.get_quantity(r,i.id)], r.ingredients)
+    return render_template("recipes/view.html", r = r, ingredients = ings)
 
 @app.route("/recipes/<recipe_id>/", methods=["POST"])
 @login_required
@@ -98,7 +112,7 @@ def recipes_set_favourite(recipe_id):
     r.favourite = not r.favourite
     db.session().commit()
   
-    return redirect(url_for("recipes_index"))
+    return redirect(url_for("recipes_view", recipe_id=recipe_id))
 
 @app.route("/recipes/<recipe_id>/del", methods=["POST"])
 @login_required

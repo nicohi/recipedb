@@ -14,7 +14,7 @@
 <td>
     <form method="GET" action="{{ url_for('filter_index') }}">
     <input type="text" id="term" name="term" value=""/>
-    <input type="submit" value="search"/>
+    <input class="btn btn-secondary" type="submit" value="search"/>
     </form>
 </td>
 <td>
@@ -24,7 +24,7 @@
             <td><a href="{{ url_for('ingredients_view', ingredient_id=i.id) }}">{{ i.name }}</a></td>
             <td>
                 <form method="POST" action="{{ url_for('filter_del_ingredient', ingredient_id=i.id) }}">
-                <input type="submit" value="-"/>
+                <input class="btn btn-danger" type="submit" value="-"/>
                 </form>
             </td>
             </tr>
@@ -38,7 +38,7 @@
                 {{ form.ingredient }}
                 </td>
                 <td>
-                    <input type="submit" value="+"/>
+                    <input class="btn btn-success" type="submit" value="+"/>
                 </td>
             </tr>
         </form>

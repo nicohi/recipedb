@@ -1,22 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
+  <h1>
     recipedb - a digital cookbook
-  </p>
+  </h1>
 
   {% if favs is defined %}
-    <p>
+    <h3>
     Favourites
-    </p>
-
-<ul>
+    </h3>
+    <table class="table">
     {% for r in favs %}
-    <li>
-       {{r.name}}
-    </li>
-  {% endfor %}
-</ul>
+        <tr>
+        <td><a href="{{ url_for('recipes_view', recipe_id=r.id) }}">{{ r.name }}</a></td>
+        <td>
+        {{ r.description }}
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
 
 {% endif %}
 {% endblock %}
