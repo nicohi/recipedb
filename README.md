@@ -46,6 +46,11 @@ When adding a new recipe, first create entries for all the ingredients (if they 
 Then create a recipe entry with a description and navigate to that recipes 'edit' page. (from the recipelist click the recipe, then click 'edit')
 Then you can link the ingredients to the recipe with the correct quantities by typing an integer in the text field and pressing '+'.
 
+### Editing a recipe
+Navigate to the desired recipe. Press "Edit".
+Edit the text and press "Save changes"
+Add or remove ingredients with the + and - buttons.
+
 ### Searching
 Navigate to the "Find recipes" tab.
 You can search by entering text into the search field and pressing the button (search looks at all associated text in recipes except ingredients).
