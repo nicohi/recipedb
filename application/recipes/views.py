@@ -17,7 +17,7 @@ def cleanstr(s):
 
 @app.route("/recipes", methods=["GET"])
 def recipes_index():
-    return render_template("recipes/list.html", recipes = Recipe.query.all())
+    return render_template("recipes/list.html", recipes = Recipe.query.order_by(Recipe.name).all())
 
 @app.route("/recipes/new/")
 @login_required
