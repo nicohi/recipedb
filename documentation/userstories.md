@@ -1,10 +1,10 @@
 # user stories
 ## As a user I can add and remove recipes
-This is done with functions provided by sqlalchemy.
+Implemented with functions provided by sqlalchemy.
 ## As a user can edit entries
-This is done with functions provided by sqlalchemy.
+Implemented with functions provided by sqlalchemy.
 ## As a user can delete entries
-This is done with functions provided by sqlalchemy.
+Implemented with functions provided by sqlalchemy.
 ## As a user I can filter (sorted) search results with ingredients to find recipes that make use of most of the ingredients I have
 ```
 SELECT recipe_id FROM recipe_ingredient 
