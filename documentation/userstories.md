@@ -16,3 +16,11 @@ ORDER BY COUNT(*) DESC;
 This query gets all the recipeIds that use ingredients in the filter. It then sorts them by how many of the filtered ingredients are used in the recipe.
 ## As a user I can search for recipes with a string
 This is done in python by applying a filter to the results of the filtered recipe query.
+## As a user I can add and remove ingredients from my filter
+A users filter id can be fetched with the following sql query.
+```
+SELECT id FROM filter
+WHERE (account_id = ACCOUNT_ID);
+```
+`ACCOUNT_ID` is the id of the current user.
+The list of ingredients is then modified using sqlalchemy functions.
